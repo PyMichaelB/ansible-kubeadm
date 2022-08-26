@@ -1,0 +1,38 @@
+- name: add helm chart repo
+  kubernetes.core.helm_repository:
+    name: kubernetes-dashboard
+    repo_url: https://kubernetes.github.io/dashboard/
+
+- name: install
+  kubernetes.core.helm:
+    name: kubernetes-dashboard
+    release_state: present
+    namespace: kubernetes-dashboard
+    chart_ref: kubernetes-dashboard/kubernetes-dashboard
+    chart_version: "{{ dashboard_version }}"
+    create_namespace: yes
+    wait: yes
+    values: "{{ lookup('template', 'values.yml.j2', variable_start_string='<<',  variable_end_string='>>') | from_yaml }}"
+    update_repo_cache: yes
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
+- name: copy script for creating admin user token
+  ansible.builtin.copy:
+    src: get_token.sh
+    dest: /home/{{ ansible_user_id }}/get_token.sh
+    mode: "0555"
+
+- name: apply admin user
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ admin_user }}\n EOF"
+  vars:
+    admin_user: "{{ lookup('file', './admin-user.yml') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
+- name: apply admin user role
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ admin_user_role }}\n EOF"
+  vars:
+    admin_user_role: "{{ lookup('file', './admin-user-role.yml') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config

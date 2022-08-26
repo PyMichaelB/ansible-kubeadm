@@ -1,0 +1,18 @@
+- name: add helm chart repo
+  kubernetes.core.helm_repository:
+    name: ingress-nginx
+    repo_url: https://kubernetes.github.io/ingress-nginx
+
+- name: install
+  kubernetes.core.helm:
+    name: ingress-nginx
+    release_state: present
+    namespace: ingress-nginx
+    chart_ref: ingress-nginx/ingress-nginx
+    chart_version: "{{ ingress_nginx_version }}"
+    create_namespace: yes
+    wait: yes
+    values: "{{ lookup('template', 'values.yml.j2', variable_start_string='<<',  variable_end_string='>>') | from_yaml }}"
+    update_repo_cache: yes
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config

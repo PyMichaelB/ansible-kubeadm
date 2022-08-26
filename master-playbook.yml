@@ -1,0 +1,9 @@
+- hosts: master
+  roles:
+    - k3s-server
+    - charts/prometheus-stack
+    - charts/dashboard
+    - charts/metallb
+    - charts/ingress-nginx
+    - charts/cert-manager
+    - charts/vault

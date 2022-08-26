@@ -1,0 +1,32 @@
+- name: add helm chart repo
+  kubernetes.core.helm_repository:
+    name: metallb
+    repo_url: https://metallb.github.io/metallb
+
+- name: install
+  kubernetes.core.helm:
+    name: metallb
+    release_state: present
+    namespace: metallb-system
+    chart_ref: metallb/metallb
+    chart_version: "{{ metallb_version }}"
+    create_namespace: yes
+    wait: yes
+    values: "{{ lookup('template', 'values.yml.j2', variable_start_string='<<',  variable_end_string='>>') | from_yaml }}"
+    update_repo_cache: yes
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
+- name: apply metallb address pool
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ rendered_address_pool }}\n EOF"
+  vars:
+    rendered_address_pool: "{{ lookup('template', './metallb-address-pool.yml.j2') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
+- name: apply metallb l2 advertisement
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ l2_advertisement }}\n EOF"
+  vars:
+    l2_advertisement: "{{ lookup('file', './metallb-l2advertisement.yml') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config

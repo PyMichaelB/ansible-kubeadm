@@ -1,0 +1,18 @@
+- name: add helm chart repo
+  kubernetes.core.helm_repository:
+    name: prometheus-community
+    repo_url: https://prometheus-community.github.io/helm-charts
+
+- name: install monitoring
+  kubernetes.core.helm:
+    name: kube-prometheus-stack
+    release_state: present
+    namespace: monitory
+    chart_ref: prometheus-community/kube-prometheus-stack
+    chart_version: "{{ prometheus_version }}"
+    create_namespace: yes
+    wait: yes
+    values: "{{ lookup('template', 'values.yml.j2', variable_start_string='<<',  variable_end_string='>>') | from_yaml }}"
+    update_repo_cache: yes
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config

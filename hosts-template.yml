@@ -14,6 +14,9 @@ all:
         # Address range to allow metallb to hand out to load balancer svc types
         metallb_ip_range: 192.168.0.10-192.168.0.10
 
+        ingress_nginx:
+          ip: 192.168.0.6
+
         # Lets Encrypt details below
         cert_manager:
           env: production

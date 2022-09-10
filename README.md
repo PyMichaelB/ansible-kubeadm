@@ -40,8 +40,8 @@ The main versioning / configuration should be specified in the **group_vars** di
 
 Suggested playbook order:
 ```
-ansible-playbook -i hosts.yml playbooks/master-setup.yml
-ansible-playbook -i hosts.yml playbooks/worker-setup.yml
+ansible-playbook -i hosts.yml playbooks/master-setup.yml --ask-become
+ansible-playbook -i hosts.yml playbooks/worker-setup.yml --ask-become
 ansible-playbook -i hosts.yml playbooks/base-workloads.yml
 ```
 

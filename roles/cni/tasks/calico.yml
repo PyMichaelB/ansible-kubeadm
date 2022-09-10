@@ -1,0 +1,5 @@
+- name: retrieve calico networking manifests
+  ansible.builtin.shell: curl https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/manifests/calico.yaml -O
+
+- name: install calico resources
+  ansible.builtin.shell: kubectl apply -f calico.yaml

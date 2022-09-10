@@ -14,7 +14,7 @@ localAPIEndpoint:
 nodeRegistration:
   criSocket: unix:///var/run/containerd/containerd.sock
   imagePullPolicy: IfNotPresent
-  name: k8s-master
+  name: {{ ansible_hostname }}
   taints: null
 ---
 apiServer:

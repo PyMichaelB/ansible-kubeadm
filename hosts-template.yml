@@ -5,9 +5,6 @@ all:
         k8s-master:
           ansible_host: 192.168.0.30
       vars:
-        # The interface flannel should use for node-node comms
-        flannel_iface: eth0
-
         # Helm download link
         helm_download: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 

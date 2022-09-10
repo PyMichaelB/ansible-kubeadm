@@ -24,21 +24,16 @@ This installs the cluster using kubeadm.
 
 The chart versions are specified in the `defaults` folder of their role. The chart values file for the version specified in `defaults` is found in `templates`.
 
-### CIDRs
-
-The below are set in the `defaults` of the kubeadm-init role:
-
-- Service CIDR: 10.96.0.0/16
-- Pod CIDR: 10.244.0.0/16
-
 ### Kube-proxy
 
 Kube-proxy uses IP Virtual Server (ipvs) as opposed to the default of iptables.
 
 ### Configuration and usage
+
 The main versioning / configuration should be specified in the **group_vars** directory. Before use, copy the `master-template.yml` to `master.yml` and add in any secrets.
 
 Suggested playbook order:
+
 ```
 ansible-playbook -i hosts.yml playbooks/master-setup.yml --ask-become
 ansible-playbook -i hosts.yml playbooks/worker-setup.yml --ask-become

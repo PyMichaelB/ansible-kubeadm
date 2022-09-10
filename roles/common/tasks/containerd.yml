@@ -2,11 +2,7 @@
   become: yes
   ansible.builtin.apt:
     state: present
-    pkg:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - docker-compose-plugin
+    name: "containerd.io={{ containerd_version }}"
     update_cache: yes
   environment:
     DEBIAN_FRONTEND: noninteractive

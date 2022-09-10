@@ -21,8 +21,7 @@ This set of playbooks will setup a **single master / control-plane** with as man
 ### Installation and versions
 
 This installs the cluster using kubeadm.
-
-The Kubernetes version and containerd version is not yet selectable - it will be the latest at the time of install of (kubeadm, kubelet, kubectl) and containerd.
+The main versioning / configuration should be specified in the **group_vars** directory. Before use, copy the `master-template.yml` to `master.yml` and add in any secrets.
 
 The chart versions are specified in the `defaults` folder of their role. The chart values file for the version specified in `defaults` is found in `templates`.
 

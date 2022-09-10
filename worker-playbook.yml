@@ -1,3 +1,0 @@
-- hosts: workers
-  roles:
-    - k3s-agent

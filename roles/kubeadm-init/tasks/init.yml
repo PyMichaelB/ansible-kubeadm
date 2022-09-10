@@ -1,0 +1,12 @@
+- name: deploy kubeadm config file
+  become: yes
+  ansible.builtin.template:
+    src: config.yml.j2
+    dest: /kubeadm-config.yaml
+    group: root
+    owner: root
+    mode: "0600"
+
+- name: cluster init
+  become: yes
+  ansible.builtin.shell: kubeadm init --config /kubeadm-config.yaml

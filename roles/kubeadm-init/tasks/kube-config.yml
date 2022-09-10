@@ -1,0 +1,3 @@
+- name: setup kube dir and kube config for user
+  become: yes
+  ansible.builtin.shell: mkdir -p /home/{{ ansible_user_id }}/.kube && cp /etc/kubernetes/admin.conf /home/{{ ansible_user_id }}/.kube/config && chown {{ ansible_user_id }}:{{ ansible_user_id }} /home/{{ ansible_user_id }}/.kube/config

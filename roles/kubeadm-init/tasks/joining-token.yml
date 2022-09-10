@@ -1,0 +1,6 @@
+- name: generate a joining token
+  ansible.builtin.shell: kubeadm token create --print-join-command
+  register: join
+
+- name: copy joining token
+  local_action: copy content="{{ join.stdout }}" dest=node-token.txt

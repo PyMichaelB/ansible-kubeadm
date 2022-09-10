@@ -1,4 +1,5 @@
-node-token.txt
 .venv
 venv
+node-token.txt
 hosts.yml
+roles/charts/example

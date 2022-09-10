@@ -1,0 +1,6 @@
+- name: install ipvsadm
+  become: yes
+  ansible.builtin.apt:
+    name: ipvsadm
+    state: present
+    update_cache: yes

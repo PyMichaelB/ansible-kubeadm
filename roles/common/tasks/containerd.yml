@@ -1,0 +1,21 @@
+- name: install containerd.io
+  become: yes
+  ansible.builtin.apt:
+    state: present
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+    update_cache: yes
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+
+- name: deploy containerd config file
+  become: yes
+  ansible.builtin.copy:
+    src: ./containerd-config.toml
+    dest: /etc/containerd/config.toml
+    group: root
+    owner: root
+    mode: "0600"

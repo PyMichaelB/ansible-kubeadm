@@ -1,0 +1,4 @@
+- name: install helm
+  become: yes
+  ansible.builtin.shell: curl {{ helm_download }} | bash
+  when: inventory_hostname in groups["master"]

@@ -1,0 +1,42 @@
+- name: turn swap off command line
+  become: yes
+  ansible.builtin.shell: swapoff -a
+
+- name: remove swap.img from /etc/fstab
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/fstab
+    regexp: "^/swap.img"
+    state: absent
+
+- name: modprobe overlay br_netfilter
+  become: yes
+  ansible.builtin.shell: modprobe overlay && modprobe br_netfilter
+
+- name: allow ip forward
+  become: yes
+  ansible.builtin.copy:
+    dest: /proc/sys/net/ipv4/ip_forward
+    content: |
+      1
+
+- name: iptables bridged traffic
+  become: yes
+  ansible.builtin.copy:
+    dest: /proc/sys/net/bridge/bridge-nf-call-iptables
+    content: |
+      1
+
+- name: install kubelet, kubeadm, and kubectl
+  become: yes
+  ansible.builtin.apt:
+    pkg:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+    update_cache: yes
+
+- name: pull kubernetes images
+  become: yes
+  shell: kubeadm config images pull

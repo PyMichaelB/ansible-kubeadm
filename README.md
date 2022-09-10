@@ -21,7 +21,6 @@ This set of playbooks will setup a **single master / control-plane** with as man
 ### Installation and versions
 
 This installs the cluster using kubeadm.
-The main versioning / configuration should be specified in the **group_vars** directory. Before use, copy the `master-template.yml` to `master.yml` and add in any secrets.
 
 The chart versions are specified in the `defaults` folder of their role. The chart values file for the version specified in `defaults` is found in `templates`.
 
@@ -35,6 +34,16 @@ The below are set in the `defaults` of the kubeadm-init role:
 ### Kube-proxy
 
 Kube-proxy uses IP Virtual Server (ipvs) as opposed to the default of iptables.
+
+### Configuration and usage
+The main versioning / configuration should be specified in the **group_vars** directory. Before use, copy the `master-template.yml` to `master.yml` and add in any secrets.
+
+Suggested playbook order:
+```
+ansible-playbook -i hosts.yml playbooks/master-setup.yml
+ansible-playbook -i hosts.yml playbooks/worker-setup.yml
+ansible-playbook -i hosts.yml playbooks/base-workloads.yml
+```
 
 ### Joining more workers
 

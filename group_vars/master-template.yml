@@ -16,3 +16,6 @@ cert_manager:
 # Slack details for monitoring
 slack_api: << SUPER SECRET SLACK API >>
 slack_channel: kubernetes-cluster
+
+pod_cidr: 10.244.0.0/16
+service_cidr: 10.96.0.0/16

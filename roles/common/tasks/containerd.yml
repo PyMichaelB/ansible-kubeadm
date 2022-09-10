@@ -11,11 +11,10 @@
   environment:
     DEBIAN_FRONTEND: noninteractive
 
-- name: deploy containerd config file
+- name: deploy default containerd config
   become: yes
-  ansible.builtin.copy:
-    src: ./containerd-config.toml
-    dest: /etc/containerd/config.toml
-    group: root
-    owner: root
-    mode: "0600"
+  ansible.builtin.shell: mkdir -p /etc/containerd && containerd config default > /etc/containerd/config.toml
+
+- name: set systemd cgroup in containerd config
+  become: yes
+  ansible.builtin.shell: sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml

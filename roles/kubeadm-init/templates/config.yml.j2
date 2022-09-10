@@ -32,8 +32,8 @@ kind: ClusterConfiguration
 kubernetesVersion: 1.25.0
 networking:
   dnsDomain: cluster.local
-  serviceSubnet: 10.96.0.0/16
-  podSubnet: 10.244.0.0/16
+  serviceSubnet: {{ service_cidr }}
+  podSubnet: {{ pod_cidr }}
 scheduler: {}
 ---
 apiVersion: kubeproxy.config.k8s.io/v1alpha1

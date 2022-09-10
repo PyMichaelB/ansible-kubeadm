@@ -1,0 +1,18 @@
+# Helm download link
+helm_download: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+# Address range to allow metallb to hand out to load balancer svc types
+metallb_ip_range: 192.168.0.6-192.168.0.9
+
+ingress_nginx:
+  ip: 192.168.0.6
+
+# Lets Encrypt details below
+cert_manager:
+  env: production
+  server: https://acme-v02.api.letsencrypt.org/directory
+  email: << YOUR EMAIL >>
+
+# Slack details for monitoring
+slack_api: << SUPER SECRET SLACK API >>
+slack_channel: kubernetes-cluster

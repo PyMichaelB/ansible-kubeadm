@@ -1,5 +1,5 @@
 .venv
 venv
 node-token.txt
-hosts.yml
+group_vars/master.yml
 roles/charts/example

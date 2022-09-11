@@ -2,6 +2,10 @@
 
 This set of playbooks will setup a **single master / control-plane** with as many worker nodes as you like.
 
+## Compatibility
+This has been tested on:
+- Ubuntu 22.04 Server
+
 ## Cluster details
 
 ### Suite of base workloads

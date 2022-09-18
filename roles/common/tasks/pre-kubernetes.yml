@@ -9,9 +9,17 @@
     regexp: "^/swap.img"
     state: absent
 
-- name: modprobe overlay br_netfilter
+- name: modprobe overlay
   become: yes
-  ansible.builtin.shell: modprobe overlay && modprobe br_netfilter
+  community.general.modprobe:
+    name: overlay
+    state: present
+  
+- name: modprobe br_netfilter
+  become: yes
+  community.general.modprobe:
+    name: br_netfilter
+    state: present
 
 - name: allow ip forward
   become: yes

@@ -7,10 +7,29 @@
   environment:
     DEBIAN_FRONTEND: noninteractive
 
-- name: deploy default containerd config
+- name: ensure containerd config dir exists
   become: yes
-  ansible.builtin.shell: mkdir -p /etc/containerd && containerd config default > /etc/containerd/config.toml
+  ansible.builtin.file:
+    path: /etc/containerd
+    state: directory
+
+- name: ensure containerd config file exists
+  become: yes
+  ansible.builtin.file: 
+    path: /etc/containerd/config.toml
+    state: touch
+    # time preservation makes this idempotent
+    modification_time: preserve
+    access_time: preserve
+  notify: set default containerd config
+
+- name: flush handlers
+  meta: flush_handlers
 
 - name: set systemd cgroup in containerd config
   become: yes
-  ansible.builtin.shell: sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
+  ansible.builtin.replace:
+    path: /etc/containerd/config.toml
+    regexp: "SystemdCgroup = false"
+    replace: "SystemdCgroup = true"
+  notify: restart containerd

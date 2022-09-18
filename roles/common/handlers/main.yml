@@ -1,0 +1,11 @@
+- name: set default containerd config to defaults
+  become: yes
+  ansible.builtin.shell: containerd config default > /etc/containerd/config.toml
+  listen: set default containerd config
+
+- name: restart containerd
+  become: yes
+  service:
+    name: containerd
+    state: restarted
+  listen: restart containerd

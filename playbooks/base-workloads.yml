@@ -1,5 +1,6 @@
 - hosts: master
   roles:
+    - charts/longhorn
     - charts/prometheus-stack
     - charts/dashboard
     - charts/metallb

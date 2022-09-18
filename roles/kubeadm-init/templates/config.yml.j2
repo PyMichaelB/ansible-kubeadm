@@ -27,7 +27,7 @@ dns: {}
 etcd:
   local:
     dataDir: /var/lib/etcd
-imageRepository: registry.k8s.io
+imageRepository: k8s.gcr.io
 kind: ClusterConfiguration
 kubernetesVersion: {{ kubernetes_version }}
 networking:
@@ -41,3 +41,6 @@ kind: KubeProxyConfiguration
 mode: ipvs
 ipvs:
   strictARP: true
+
+
+

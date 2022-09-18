@@ -15,17 +15,11 @@
 
 - name: allow ip forward
   become: yes
-  ansible.builtin.copy:
-    dest: /proc/sys/net/ipv4/ip_forward
-    content: |
-      1
+  ansible.builtin.shell: sysctl -w net.ipv4.ip_forward=1
 
 - name: iptables bridged traffic
   become: yes
-  ansible.builtin.copy:
-    dest: /proc/sys/net/bridge/bridge-nf-call-iptables
-    content: |
-      1
+  ansible.builtin.shell: sysctl -w net.bridge.bridge-nf-call-iptables=1
 
 - name: install kubelet, kubeadm, and kubectl
   become: yes

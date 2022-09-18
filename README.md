@@ -16,6 +16,7 @@ This has been tested on:
 4. Ingress controller (NGINX, community) - LoadBalancer service type assigned an IP by MetalLB
 5. Cert manager to provide TLS certificates
 6. Vault - secret storage and injection
+7. Longhorn - CSI
 
 ### Chosen CRI and CNI
 

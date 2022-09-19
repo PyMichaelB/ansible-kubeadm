@@ -16,3 +16,17 @@
     update_repo_cache: yes
   environment:
     KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
+- name: apply prometheus certificate
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ ca }}\n EOF"
+  vars:
+    ca: "{{ lookup('template', './prometheus-cert.yml.j2') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
+- name: apply grafana certificate
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ ca }}\n EOF"
+  vars:
+    ca: "{{ lookup('template', './grafana-cert.yml.j2') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config

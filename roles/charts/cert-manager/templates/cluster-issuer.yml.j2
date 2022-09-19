@@ -1,14 +1,6 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-{{ cert_manager['env'] }}
+  name: selfsigned-cluster-issuer
 spec:
-  acme:
-    server: {{ cert_manager['server'] }}
-    email: {{ cert_manager['email'] }} 
-    privateKeySecretRef:
-      name: letsencrypt-{{ cert_manager['env'] }}
-    solvers:
-      - http01:
-          ingress:
-            class: nginx
+  selfSigned: {}

@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vault-selfsigned-ca
+  namespace: vault
+spec:
+  isCA: true
+  commonName: {{ vault['host'] }}
+  secretName: {{ vault['tls'] }}
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-cluster-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io

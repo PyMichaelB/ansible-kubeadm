@@ -16,3 +16,10 @@
     update_repo_cache: yes
   environment:
     KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
+- name: apply vault certificate
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ ca }}\n EOF"
+  vars:
+    ca: "{{ lookup('template', './certificate.yml.j2') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config

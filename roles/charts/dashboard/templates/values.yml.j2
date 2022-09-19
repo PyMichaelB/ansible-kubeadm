@@ -139,7 +139,7 @@ resources:
 protocolHttp: false
 
 service:
-  type: NodePort
+  type: ClusterIP
   # Dashboard service port
   externalPort: 443
 
@@ -167,7 +167,7 @@ service:
 ingress:
   ## If true, Kubernetes Dashboard Ingress will be created.
   ##
-  enabled: false
+  enabled: true
 
   ## Kubernetes Dashboard Ingress labels
   # labels:
@@ -186,7 +186,7 @@ ingress:
   #   nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 
   ## Kubernetes Dashboard Ingress Class
-  # className: "example-lb"
+  className: "nginx"
 
   ## Kubernetes Dashboard Ingress paths
   ## Both `/` and `/*` are required to work on gce ingress.
@@ -214,15 +214,15 @@ ingress:
   ## Kubernetes Dashboard Ingress hostnames
   ## Must be provided if Ingress is enabled
   ##
-  # hosts:
-  #   - kubernetes-dashboard.domain.com
+  hosts:
+    - << dashboard['host'] >>
   ## Kubernetes Dashboard Ingress TLS configuration
   ## Secrets must be manually created in the namespace
   ##
-  # tls:
-  #   - secretName: kubernetes-dashboard-tls
-  #     hosts:
-  #       - kubernetes-dashboard.domain.com
+  tls:
+    - hosts:
+      - << dashboard['host'] >>
+      secretName: << dashboard['tls'] >>
 
 # Global dashboard settings
 settings:

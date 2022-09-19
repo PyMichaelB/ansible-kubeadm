@@ -4,15 +4,26 @@ metallb_ip_range: 192.168.0.6-192.168.0.9
 ingress_nginx:
   ip: 192.168.0.6
 
-# Lets Encrypt details below
-cert_manager:
-  env: production
-  server: https://acme-v02.api.letsencrypt.org/directory
-  email: << YOUR EMAIL >>
-
 # Slack details for monitoring
 slack_api: << SUPER SECRET SLACK API >>
 slack_channel: kubernetes-cluster
 
 pod_cidr: 10.244.0.0/16
 service_cidr: 10.96.0.0/16
+
+# Set all the following hostnames below to point to the ingress_nginx.ip field above
+vault:
+  host: << YOUR HOST NAME >>
+  tls: vault-tls
+
+prometheus:
+  host: << YOUR HOST NAME >>
+  tls: prometheus-tls
+
+grafana:
+  host: << YOUR HOST NAME >>
+  tls: grafana-tls
+
+dashboard:
+  host: << YOUR HOST NAME >>
+  tls: kubernetes-dashboard-tls

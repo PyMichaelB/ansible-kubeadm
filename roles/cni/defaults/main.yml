@@ -1,0 +1,1 @@
+calico_manifests: https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/manifests/calico.yaml

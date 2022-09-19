@@ -36,3 +36,10 @@
     admin_user_role: "{{ lookup('file', './admin-user-role.yml') }}"
   environment:
     KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
+- name: apply dashboard certificate
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ ca }}\n EOF"
+  vars:
+    ca: "{{ lookup('template', './certificate.yml.j2') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config

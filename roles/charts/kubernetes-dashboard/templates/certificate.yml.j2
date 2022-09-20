@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kubernetes-dashboard-cert
+  namespace: kubernetes-dashboard
+spec:
+  commonName: Kubernetes Dashboard Cert
+  secretName: kubernetes-dashboard-tls
+  duration: 24h
+  renewBefore: 144m  # roughly 10% of 24h
+  dnsNames:
+  - {{ dashboard['host'] }}
+  issuerRef:
+    name: root-ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io

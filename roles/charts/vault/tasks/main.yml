@@ -3,6 +3,17 @@
     name: hashicorp
     repo_url: https://helm.releases.hashicorp.com
 
+- name: create vault namespace
+  ansible.builtin.shell: kubectl create namespace vault --dry-run=client -o yaml | kubectl apply -f -
+
+# needs to be done before chart as TLS certs need to be ready
+- name: apply vault certificate
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -n vault -f -\n {{ ca }}\n EOF"
+  vars:
+    ca: "{{ lookup('template', './certificate.yml.j2') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
 - name: install
   kubernetes.core.helm:
     name: vault
@@ -14,12 +25,5 @@
     wait: yes
     values: "{{ lookup('template', 'values.yml.j2', variable_start_string='<<',  variable_end_string='>>') | from_yaml }}"
     update_repo_cache: yes
-  environment:
-    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
-
-- name: apply vault certificate
-  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ ca }}\n EOF"
-  vars:
-    ca: "{{ lookup('template', './certificate.yml.j2') }}"
   environment:
     KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config

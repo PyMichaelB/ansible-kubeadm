@@ -1,16 +1,16 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: grafana-selfsigned-ca
+  name: grafana-cert
   namespace: monitory
 spec:
-  isCA: true
-  commonName: {{ grafana['host'] }}
-  secretName: {{ grafana['tls'] }}
-  privateKey:
-    algorithm: ECDSA
-    size: 256
+  commonName: Grafana Cert
+  secretName: grafana-tls
+  duration: 24h
+  renewBefore: 144m  # roughly 10% of 24h
+  dnsNames:
+  - {{ grafana['host'] }}
   issuerRef:
-    name: selfsigned-cluster-issuer
+    name: root-ca-issuer
     kind: ClusterIssuer
     group: cert-manager.io

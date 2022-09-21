@@ -2,7 +2,7 @@
   roles:
     - charts/longhorn
     - charts/prometheus-stack
-    - charts/dashboard
+    - charts/kubernetes-dashboard
     - charts/metallb
     - charts/ingress-nginx
     - charts/cert-manager

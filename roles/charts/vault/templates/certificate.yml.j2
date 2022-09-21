@@ -1,16 +1,22 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: vault-selfsigned-ca
+  name: vault-server-cert
   namespace: vault
 spec:
-  isCA: true
-  commonName: {{ vault['host'] }}
-  secretName: {{ vault['tls'] }}
-  privateKey:
-    algorithm: ECDSA
-    size: 256
+  secretName: vault-server-tls
+  duration: 24h
+  renewBefore: 144m  # roughly 10% of 24h
+  dnsNames:
+  - vault
+  - vault.vault
+  - vault.vault.svc
+  - vault.vault.svc.cluster.local
+  - {{ vault['host'] }}
+  ipAddresses:
+  - 127.0.0.1
+  commonName: Vault Server Certificate
   issuerRef:
-    name: selfsigned-cluster-issuer
+    name: root-ca-issuer
     kind: ClusterIssuer
     group: cert-manager.io

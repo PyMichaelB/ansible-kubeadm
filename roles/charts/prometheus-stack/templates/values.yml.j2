@@ -823,7 +823,7 @@ grafana:
     tls:
       - hosts: 
         - << grafana['host'] >>
-        secretName: << grafana['tls'] >>
+        secretName: grafana-tls
     # - secretName: grafana-general-tls
     #   hosts:
     #   - grafana.example.com
@@ -2231,7 +2231,7 @@ prometheus:
     tls:
       - hosts:
         - << prometheus['host'] >>
-        secretName: << prometheus['tls'] >>
+        secretName: prometheus-tls
       # - secretName: prometheus-general-tls
       #   hosts:
       #     - prometheus.example.com

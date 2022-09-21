@@ -222,7 +222,7 @@ ingress:
   tls:
     - hosts:
       - << dashboard['host'] >>
-      secretName: << dashboard['tls'] >>
+      secretName: kubernetes-dashboard-tls
 
 # Global dashboard settings
 settings:

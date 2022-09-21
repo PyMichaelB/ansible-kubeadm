@@ -4,3 +4,29 @@ metadata:
   name: selfsigned-cluster-issuer
 spec:
   selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: root-ca-cert
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: Root CA
+  secretName: root-ca-secret
+  duration: 87660h  # 10 years
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-cluster-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: root-ca-issuer
+spec:
+  ca:
+    secretName: root-ca-secret

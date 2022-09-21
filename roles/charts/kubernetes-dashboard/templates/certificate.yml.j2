@@ -1,15 +1,15 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: grafana-cert
-  namespace: monitory
+  name: kubernetes-dashboard-cert
+  namespace: kubernetes-dashboard
 spec:
-  commonName: Grafana Cert
-  secretName: grafana-tls
+  commonName: Kubernetes Dashboard Cert
+  secretName: kubernetes-dashboard-tls
   duration: 24h
   renewBefore: 144m  # roughly 10% of 24h
   dnsNames:
-  - {{ grafana['host'] }}
+  - {{ dashboard['host'] }}
   issuerRef:
     name: root-ca-issuer
     kind: ClusterIssuer

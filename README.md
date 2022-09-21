@@ -53,3 +53,12 @@ To generate a new joining token in the case you want to add more worker nodes, h
 ```
 kubeadm token create --print-join-token
 ```
+
+### Vault server TLS checked on apps
+To make sure the vault-agent-init container can reach the vault server successfully you need to do the following:
+1) Add the root-ca (defined in the cert-manager role) to the namespace of the app in a secret called "vault-server-ca" and with a file called "ca.crt"
+2) Add the annotations below to the app (as well as the standard vault annotations)
+```
+vault.hashicorp.com/ca-cert: /vault/tls/ca.crt
+vault.hashicorp.com/tls-secret: vault-server-ca
+```

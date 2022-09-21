@@ -19,22 +19,3 @@ spec:
     name: root-ca-issuer
     kind: ClusterIssuer
     group: cert-manager.io
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: vault-injector-cert
-spec:
-  secretName: vault-injector-tls
-  duration: 24h
-  renewBefore: 144m  # roughly 10% of 24h
-  dnsNames:
-  - vault-agent-injector-svc
-  - vault-agent-injector-svc.vault
-  - vault-agent-injector-svc.vault.svc
-  - vault-agent-injector-svc.vault.svc.cluster.local
-  commonName: Vault Agent Injector Cert
-  issuerRef:
-    name: root-ca-issuer
-    kind: ClusterIssuer
-    group: cert-manager.io

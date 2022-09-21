@@ -17,8 +17,8 @@
   environment:
     KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
 
-- name: apply vault server certificate
-  ansible.builtin.shell: "cat <<EOF | kubectl apply -n vault -f -\n {{ ca }}\n EOF"
+- name: apply vault certificate
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ ca }}\n EOF"
   vars:
     ca: "{{ lookup('template', './certificate.yml.j2') }}"
   environment:

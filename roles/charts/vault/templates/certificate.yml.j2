@@ -2,6 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: vault-server-cert
+  namespace: vault
 spec:
   secretName: vault-server-tls
   duration: 24h

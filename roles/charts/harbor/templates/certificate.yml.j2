@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace 
+metadata:
+  name: harbor
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: harbor-cert
+  namespace: harbor
+spec:
+  commonName: Harbor Cert
+  secretName: harbor-tls
+  duration: 24h
+  renewBefore: 144m  # roughly 10% of 24h
+  dnsNames:
+  - {{ harbor['host'] }}
+  issuerRef:
+    name: root-ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io

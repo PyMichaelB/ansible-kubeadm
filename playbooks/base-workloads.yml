@@ -1,9 +1,10 @@
 - hosts: master
   roles:
     - charts/longhorn
-    - charts/prometheus-stack
-    - charts/kubernetes-dashboard
-    - charts/metallb
-    - charts/ingress-nginx
     - charts/cert-manager
     - charts/vault
+    - charts/metallb
+    - charts/harbor
+    - charts/prometheus-stack
+    - charts/kubernetes-dashboard
+    - charts/ingress-nginx

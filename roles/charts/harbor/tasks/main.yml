@@ -1,0 +1,25 @@
+- name: add helm chart repo
+  kubernetes.core.helm_repository:
+    name: harbor
+    repo_url: https://helm.goharbor.io
+
+- name: install
+  kubernetes.core.helm:
+    name: harbor
+    release_state: present
+    namespace: harbor
+    chart_ref: harbor/harbor
+    chart_version: "{{ harbor_version }}"
+    create_namespace: yes
+    wait: yes
+    values: "{{ lookup('template', 'values.yml.j2', variable_start_string='<<',  variable_end_string='>>') | from_yaml }}"
+    update_repo_cache: yes
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config
+
+- name: apply harbor certificate
+  ansible.builtin.shell: "cat <<EOF | kubectl apply -f -\n {{ ca }}\n EOF"
+  vars:
+    ca: "{{ lookup('template', './certificate.yml.j2') }}"
+  environment:
+    KUBECONFIG: /home/{{ ansible_user_id }}/.kube/config

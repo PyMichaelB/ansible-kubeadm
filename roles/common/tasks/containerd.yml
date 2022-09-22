@@ -18,9 +18,6 @@
   ansible.builtin.file: 
     path: /etc/containerd/config.toml
     state: touch
-    # time preservation makes this idempotent
-    modification_time: preserve
-    access_time: preserve
   notify: set default containerd config
 
 - name: flush handlers
@@ -33,3 +30,6 @@
     regexp: "SystemdCgroup = false"
     replace: "SystemdCgroup = true"
   notify: restart containerd
+
+- name: flush handlers
+  meta: flush_handlers

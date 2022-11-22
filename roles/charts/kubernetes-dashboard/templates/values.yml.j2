@@ -215,13 +215,13 @@ ingress:
   ## Must be provided if Ingress is enabled
   ##
   hosts:
-    - << dashboard['host'] >>
+    - << ingress['dashboard'] >>
   ## Kubernetes Dashboard Ingress TLS configuration
   ## Secrets must be manually created in the namespace
   ##
   tls:
     - hosts:
-      - << dashboard['host'] >>
+      - << ingress['dashboard'] >>
       secretName: kubernetes-dashboard-tls
 
 # Global dashboard settings

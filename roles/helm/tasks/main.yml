@@ -1,0 +1,3 @@
+- name: install helm
+  become: yes
+  ansible.builtin.shell: curl {{ helm_download_link }} | bash

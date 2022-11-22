@@ -2,4 +2,3 @@
 - include_tasks: ipvsadm.yml
 - include_tasks: containerd.yml
 - include_tasks: pre-kubernetes.yml
-- include_tasks: helm.yml

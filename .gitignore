@@ -1,6 +1,5 @@
 .venv
 venv
-node-token.txt
-group_vars/master.yml
+playbooks/node-token.txt
+group_vars/all.yml
 hosts.yml
-roles/charts/example

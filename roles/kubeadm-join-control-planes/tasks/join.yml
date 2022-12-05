@@ -1,5 +1,0 @@
-- name: join node to cluster
-  become: yes
-  ansible.builtin.shell: "{{ joining_command }} --control-plane --certificate-key {{ certificate_key }} --apiserver-advertise-address {{ node_ip }}"
-  vars:
-    joining_command: "{{ lookup('file', 'node-token.txt') }}"

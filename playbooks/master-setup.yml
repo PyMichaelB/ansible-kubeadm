@@ -1,11 +1,10 @@
 - hosts: control-planes[0]
   roles:
     - common
-    - helm
     - kubeadm-init
     - cni
 
 - hosts: control-planes[1:]
   roles:
     - common
-    - kubeadm-join-control-planes
+    - kubeadm-join

@@ -9,7 +9,7 @@ spec:
   duration: 24h
   renewBefore: 144m  # roughly 10% of 24h
   dnsNames:
-  - {{ grafana['host'] }}
+  - {{ ingress['grafana'] }}
   issuerRef:
     name: root-ca-issuer
     kind: ClusterIssuer

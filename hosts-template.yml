@@ -1,12 +1,15 @@
 all:
   children:
-    master:
+    control-planes:
       hosts:
-        k8s-master:
-          ansible_host: 192.168.0.34
+        control-01:
+          node_ip: 192.168.0.10
+          ansible_user: pymichaelb
+          ansible_host: 192.168.0.10
+        ...
     workers:
       hosts:
-        k8s-worker-1:
-          ansible_host: 192.168.0.32
-        k8s-worker-2:
-          ansible_host: 192.168.0.30
+        worker-01:
+          ansible_user: pymichaelb
+          ansible_host: 192.168.0.11
+        ...

@@ -1,0 +1,23 @@
+kubernetes_version: "1.24.4"
+control_plane_dns: "apiserver.domain.net"
+certificate_key: "..."
+
+# Slack details for monitoring
+slack_api: ...
+slack_channel: kubernetes-cluster
+
+metallb_ip_range: 192.168.0.6-192.168.0.8
+
+ingress:
+  ip: 192.168.0.6
+  prometheus: prometheus.domain.net
+  grafana: grafana.domain.net
+  dashboard: dashboard.domain.net
+
+harbor: 
+  host: harbor.domain.net
+  ip: 192.168.0.7
+
+vault: 
+  host: vault.domain.net
+  ip: 192.168.0.8

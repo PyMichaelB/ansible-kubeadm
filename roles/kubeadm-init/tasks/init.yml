@@ -9,4 +9,4 @@
 
 - name: cluster init
   become: yes
-  ansible.builtin.shell: kubeadm init --config /kubeadm-config.yaml
+  ansible.builtin.shell: kubeadm init --config /kubeadm-config.yaml --upload-certs

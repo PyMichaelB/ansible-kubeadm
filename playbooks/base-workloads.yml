@@ -1,10 +1,10 @@
-- hosts: master
+- hosts: control-planes[0]
   roles:
     - charts/longhorn
     - charts/cert-manager
     - charts/vault
     - charts/metallb
     - charts/harbor
+    - charts/ingress-nginx
     - charts/prometheus-stack
     - charts/kubernetes-dashboard
-    - charts/ingress-nginx

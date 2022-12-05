@@ -812,7 +812,7 @@ grafana:
     # hosts:
     #   - grafana.domain.com
     hosts:
-      - << grafana['host'] >>
+      - << ingress['grafana'] >>
 
     ## Path for grafana ingress
     path: /
@@ -822,7 +822,7 @@ grafana:
     ##
     tls:
       - hosts: 
-        - << grafana['host'] >>
+        - << ingress['grafana'] >>
         secretName: grafana-tls
     # - secretName: grafana-general-tls
     #   hosts:
@@ -2214,7 +2214,7 @@ prometheus:
     # hosts:
     #   - prometheus.domain.com
     hosts:
-      - << prometheus['host'] >>
+      - << ingress['prometheus'] >>
 
     ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
     ##
@@ -2230,7 +2230,7 @@ prometheus:
     ##
     tls:
       - hosts:
-        - << prometheus['host'] >>
+        - << ingress['prometheus'] >>
         secretName: prometheus-tls
       # - secretName: prometheus-general-tls
       #   hosts:
